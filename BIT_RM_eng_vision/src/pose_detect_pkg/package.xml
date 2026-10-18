@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>pose_detect_pkg</name>
+  <version>0.0.0</version>
+  <description>
+    OpenVINO 关键点检测节点 detect_node。订阅共享帧，对每帧做 YOLOv8-pose 推理
+    （2 类：pillar / exchange，12 关键点），发布紧凑 JSON std_msgs/String 到
+    /detect/poses_and_bboxes（含 header、frame_sequence、按类分组的 bbox 与
+    keypoints）。config/detect.yaml 配置模型路径（相对 assets）、设备、置信度
+    阈值与调试窗。核心算法在 detect_roi.py，与节点 I/O 分离。
+  </description>
+  <maintainer email="1352234739@qq.com">zz</maintainer>
+  <maintainer email="1574468941@qq.com">lsq</maintainer>
+  <license>MIT</license>
+
+  <depend>ament_index_python</depend>
+  <depend>assets</depend>
+  <depend>rclpy</depend>
+  <depend>std_msgs</depend>
+  <depend>shared_image_pkg</depend>
+  <exec_depend>python3-numpy</exec_depend>
+  <exec_depend>python3-opencv</exec_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

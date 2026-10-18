@@ -1,0 +1,4 @@
+# Enable/disable the arm
+bool enable_request
+---
+bool enable_response

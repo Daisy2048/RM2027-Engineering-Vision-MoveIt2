@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>virtual_camera_pkg</name>
+  <version>0.0.0</version>
+  <description>
+    离线视频回放节点 virtual_camera_node。循环读取本地视频并写入共享内存，
+    接口与真机 camera_node 一致（同一 shm 与 /camera/frame_ready），用于无相机时
+    调试，不平行造一套检测入口。config/virtual_camera.yaml 指定 video_path
+    （相对路径相对 assets 包目录）、发布帧率与最大等比缩放尺寸。视频需自备。
+  </description>
+  <maintainer email="1352234739@qq.com">zz</maintainer>
+  <maintainer email="1574468941@qq.com">lsq</maintainer>
+  <license>MIT</license>
+
+  <depend>ament_index_python</depend>
+  <depend>assets</depend>
+  <depend>rclpy</depend>
+  <depend>std_msgs</depend>
+  <depend>shared_image_pkg</depend>
+  <exec_depend>python3-opencv</exec_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

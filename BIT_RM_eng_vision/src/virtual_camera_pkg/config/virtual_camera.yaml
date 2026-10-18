@@ -1,0 +1,10 @@
+# 虚拟相机参数（virtual_camera_node 启动时直接读取本文件）
+
+# 回放视频路径；相对路径相对于 assets 包目录解析
+# 仓库不含视频，请自备（如放入 src/assets/videos/ 后 colcon build）
+video_path: "videos/3.mp4"
+publish_fps: 30.0
+# 等比缩放后的最大发布尺寸
+max_width: 1080
+max_height: 1920
+frame_id: "virtual_camera"

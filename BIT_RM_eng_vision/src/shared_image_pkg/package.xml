@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>shared_image_pkg</name>
+  <version>0.0.0</version>
+  <description>
+    本机进程间最新帧共享内存传输库（非独立节点）。SharedFrameWriter/Reader
+    将 BGR 图像写入 POSIX shm；相机侧在 /camera/frame_ready 发布 UInt64 序号
+    （FRAME_TOPIC + FRAME_QOS），下游订阅后读取最新帧。覆盖写、无队列堆积，
+    避免高分辨率 sensor_msgs/Image 走 DDS。检测、PnP、录制、标定均只复用本包。
+  </description>
+  <maintainer email="1352234739@qq.com">zz</maintainer>
+  <maintainer email="1574468941@qq.com">lsq</maintainer>
+  <license>MIT</license>
+
+  <depend>rclpy</depend>
+  <exec_depend>python3-numpy</exec_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

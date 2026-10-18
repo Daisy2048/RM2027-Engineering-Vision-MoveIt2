@@ -1,0 +1,46 @@
+<launch>
+  <!-- Gazebo parameters -->
+  <arg name="use_sim_time" default="true" />
+
+  <!-- Set Gazebo resource path for meshes -->
+  <set_env name="GAZEBO_MODEL_PATH" value="$(find-pkg-share panthera_ht_ros_description):$(find-pkg-share panthera_ht_ros_description)/.." />
+
+  <!-- Set Gazebo plugin path for ros2_control -->
+  <set_env name="GAZEBO_PLUGIN_PATH" value="/opt/ros/humble/lib" />
+
+  <!-- URDF path -->
+  <let name="urdf_file"
+       value="$(find-pkg-share panthera_gazebo)/urdf/Panthera-HT_gazebo.urdf.xacro" />
+
+  <!-- Generate robot_description from xacro -->
+  <let name="robot_description_content"
+       value="$(command 'xacro $(var urdf_file)')" />
+
+  <!-- Robot State Publisher -->
+  <node pkg="robot_state_publisher" exec="robot_state_publisher" output="screen">
+    <param name="robot_description" value="$(var robot_description_content)" />
+    <param name="use_sim_time" value="$(var use_sim_time)" />
+  </node>
+
+  <!-- Start Gazebo Classic -->
+  <executable cmd="gazebo --verbose -s libgazebo_ros_init.so -s libgazebo_ros_factory.so" output="screen" />
+
+  <!-- Spawn robot -->
+  <node pkg="gazebo_ros" exec="spawn_entity.py" output="screen"
+        args="-topic robot_description -entity panthera_with_gripper">
+  </node>
+
+  <!-- Load controllers with delay -->
+  <node pkg="controller_manager" exec="spawner"
+        args="joint_state_broadcaster --controller-manager-timeout 30"
+        output="screen" />
+
+  <node pkg="controller_manager" exec="spawner"
+        args="arm_controller --controller-manager-timeout 30"
+        output="screen" />
+
+  <node pkg="controller_manager" exec="spawner"
+        args="gripper_controller --controller-manager-timeout 30"
+        output="screen" />
+
+</launch>

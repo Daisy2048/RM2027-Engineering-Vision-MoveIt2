@@ -1,0 +1,20 @@
+<launch>
+  <!-- Load MoveIt configuration -->
+  <let name="robot_description_config"
+       value="$(command 'xacro $(find-pkg-share panthera_ht_config)/config/panthera_ht_ros_description.urdf.xacro')" />
+
+  <let name="robot_description_semantic"
+       value="$(command 'cat $(find-pkg-share panthera_ht_config)/config/panthera_ht_ros_description.srdf')" />
+
+  <let name="kinematics_config"
+       value="$(find-pkg-share panthera_ht_config)/config/kinematics.yaml" />
+
+  <!-- Test Cartesian Path Node -->
+  <node pkg="panthera_commander" exec="test_moveit_by_cartesian" output="screen">
+    <param name="robot_description" value="$(var robot_description_config)" />
+    <param name="robot_description_semantic" value="$(var robot_description_semantic)" />
+    <rosparam file="$(var kinematics_config)" />
+    <param name="use_sim_time" value="false" />
+  </node>
+
+</launch>

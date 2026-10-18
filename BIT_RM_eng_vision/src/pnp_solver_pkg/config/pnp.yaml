@@ -1,0 +1,17 @@
+# PnP 解算参数（pnp_node 启动时直接读取本文件）
+# 相机内参与目标 3D 点在同目录 camera_info.yaml / world_points.yaml
+
+# 关键点滑动窗口滤波
+filter_window_size: 3
+filter_min_points: 4
+# pillar/exchange 配对 IoU 阈值
+iou_threshold: 0.3
+# solvePnPRansac
+ransac_iterations: 3000
+ransac_reprojection_error: 3.5
+ransac_confidence: 0.99
+min_inliers: 4
+# 打印耗时等调试日志
+debug: true
+# 显示 OpenCV 调试窗口（无显示环境设为 false）
+show_image: true

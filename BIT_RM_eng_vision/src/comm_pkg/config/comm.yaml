@@ -1,0 +1,16 @@
+# 电控串口通信参数（comm_node 启动时直接读取本文件）
+
+uart_port: "/dev/ttyUSB0"
+uart_baudrate: 115200
+# 0x01 位姿发送周期（秒）
+timer_period: 1.0
+# 0x04 可见性位图发送频率（Hz）
+point_mask_hz: 30.0
+# 串口接收轮询频率（Hz）
+rx_hz: 50.0
+# 重连失败告警最小间隔（秒）
+reconnect_log_interval_s: 5.0
+pose_topic_right: "/world/object_rpy_1"
+pose_topic_left: "/world/object_rpy_2"
+point_mask_topic: "/pnp/point_mask"
+camera_imu_topic: "/camera/imu_rpy"

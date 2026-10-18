@@ -1,0 +1,10 @@
+# Request: 6 joint angles in radians
+float64[6] joint_angles
+# Max velocity scaling factor (0.0~1.0)
+float64 velocity_scaling 1.0
+# Max acceleration scaling factor (0.0~1.0)
+float64 acceleration_scaling 1.0
+---
+# Response
+bool success
+string message

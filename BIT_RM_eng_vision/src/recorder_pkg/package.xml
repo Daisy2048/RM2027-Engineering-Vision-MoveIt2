@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>recorder_pkg</name>
+  <version>0.0.0</version>
+  <description>
+    旁路 H.264 录制节点 recorder_node。读取共享帧，叠加 /detect/poses_and_bboxes
+    检测框，经 ffmpeg 写分段 MKV。由 start.sh 作为非核心进程拉起，崩溃不拖累
+    detect/pnp/tf。输出目录、抽帧间隔、分段长度、CRF/编码预设见
+    config/recorder.yaml。
+  </description>
+  <maintainer email="1352234739@qq.com">zz</maintainer>
+  <maintainer email="1574468941@qq.com">lsq</maintainer>
+  <license>MIT</license>
+
+  <depend>rclpy</depend>
+  <depend>std_msgs</depend>
+  <depend>shared_image_pkg</depend>
+  <depend>pose_detect_pkg</depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

@@ -1,0 +1,17 @@
+# Request: end-effector target pose
+float64 x
+float64 y
+float64 z
+float64 roll
+float64 pitch
+float64 yaw
+# Use Cartesian path planning (linear motion)
+bool cartesian_path false
+# Max velocity scaling factor (0.0~1.0)
+float64 velocity_scaling 1.0
+# Max acceleration scaling factor (0.0~1.0)
+float64 acceleration_scaling 1.0
+---
+# Response
+bool success
+string message

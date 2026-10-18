@@ -1,0 +1,25 @@
+moveit_setup_assistant_config:
+  urdf:
+    package: panthera_ht_ros_description
+    relative_path: urdf/panthera_ht_ros_description.xacro
+  srdf:
+    relative_path: config/panthera_ht_ros_description.srdf
+  package_settings:
+    author_name: wEch1ng
+    author_email: 3575868884@qq.com
+    generated_timestamp: 1770358637
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity
+  modified_urdf:
+    xacros:
+      - control_xacro
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity

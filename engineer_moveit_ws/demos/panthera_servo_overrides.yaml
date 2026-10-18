@@ -1,0 +1,23 @@
+# These are overrides layered on top of the installed ROS 2 Humble MoveIt Servo
+# panda_simulated_config.yaml, which supplies other version-specific parameters.
+# ONLY for Panthera FakeSystem/GenericSystem in demo.launch.py.
+move_group_name: arm
+planning_frame: base_link
+ee_frame_name: bat_center
+robot_link_command_frame: base_link
+use_gazebo: false
+command_in_type: speed_units
+publish_period: 0.02
+incoming_command_timeout: 0.15
+joint_topic: /joint_states
+cartesian_command_in_topic: /servo_node/delta_twist_cmds
+joint_command_in_topic: /servo_node/delta_joint_cmds
+status_topic: /servo_node/status
+command_out_topic: /arm_controller/joint_trajectory
+command_out_type: trajectory_msgs/JointTrajectory
+publish_joint_positions: true
+publish_joint_velocities: false
+publish_joint_accelerations: false
+is_primary_planning_scene_monitor: false
+check_collisions: true
+check_octomap_collisions: false

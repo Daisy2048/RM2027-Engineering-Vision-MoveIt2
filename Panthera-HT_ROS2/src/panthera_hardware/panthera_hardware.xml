@@ -1,0 +1,8 @@
+<library path="panthera_hardware">
+  <class name="panthera_hardware/PantheraHardwareInterface" type="panthera_hardware::PantheraHardwareInterface" base_class_type="hardware_interface::SystemInterface">
+    <description>
+      Hardware interface for Panthera-HT robotic arm with gripper.
+      Supports position control with configurable control modes (position_velocity or pd_control).
+    </description>
+  </class>
+</library>

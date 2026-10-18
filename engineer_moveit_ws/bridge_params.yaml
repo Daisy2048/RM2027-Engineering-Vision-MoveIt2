@@ -1,0 +1,77 @@
+planner_bridge:
+  ros__parameters:
+    robot_description_semantic: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!--This\
+      \ does not replace URDF, and is not an extension of URDF.\n    This is a format\
+      \ for representing semantic information about the robot structure.\n    A URDF\
+      \ file must exist for this robot as well, where the joints and the links that\
+      \ are referenced are defined\n-->\n<robot name=\"panthera_ht_ros_description\"\
+      >\n    <!--GROUPS: Representation of a set of joints and links. This can be\
+      \ useful for specifying DOF to plan for, defining arms, end effectors, etc-->\n\
+      \    <!--LINKS: When a link is specified, the parent joint of that link (if\
+      \ it exists) is automatically included-->\n    <!--JOINTS: When a joint is specified,\
+      \ the child link of that joint (which will always exist) is automatically included-->\n\
+      \    <!--CHAINS: When a chain is specified, all the links along the chain (including\
+      \ endpoints) are included in the group. Additionally, all the joints that are\
+      \ parents to included links are also included. This means that joints along\
+      \ the chain and the parent joint of the base link are included in the group-->\n\
+      \    <!--SUBGROUPS: Groups can also be formed by referencing to already defined\
+      \ group names-->\n    <group name=\"arm\">\n        <joint name=\"virtual_joint\"\
+      />\n        <joint name=\"joint1\"/>\n        <joint name=\"joint2\"/>\n   \
+      \     <joint name=\"joint3\"/>\n        <joint name=\"joint4\"/>\n        <joint\
+      \ name=\"joint5\"/>\n        <joint name=\"joint6\"/>\n        <link name=\"\
+      bat_center\"/>\n    </group>\n    <group name=\"bat_eef\">\n        <link name=\"\
+      bat_center\"/>\n        <joint name=\"bat_center_joint\"/>\n    </group>\n \
+      \   <!--END EFFECTOR: Purpose: Represent information about an end effector.-->\n\
+      \    <end_effector name=\"bat\" parent_link=\"bat_center\" group=\"bat_eef\"\
+      \ parent_group=\"arm\"/>\n    <!--GROUP STATES: Purpose: Define a named state\
+      \ for a particular group, in terms of joint values. This is useful to define\
+      \ states like 'folded arms'-->\n    <group_state name=\"home\" group=\"arm\"\
+      >\n        <joint name=\"joint1\" value=\"0\"/>\n        <joint name=\"joint2\"\
+      \ value=\"0\"/>\n        <joint name=\"joint3\" value=\"0\"/>\n        <joint\
+      \ name=\"joint4\" value=\"0\"/>\n        <joint name=\"joint5\" value=\"0\"\
+      />\n        <joint name=\"joint6\" value=\"0\"/>\n    </group_state>\n    <!--\
+      \ WARNING: pose1/pose2 values below are UNVERIFIED against the new real arm.\n\
+      \         pose1 was clamped into the new +/-1.57 joint limits (was 1.6 for j2/j3).\
+      \ -->\n    <group_state name=\"pose1\" group=\"arm\">\n        <joint name=\"\
+      joint1\" value=\"0\"/>\n        <joint name=\"joint2\" value=\"1.0\"/>\n   \
+      \     <joint name=\"joint3\" value=\"1.0\"/>\n        <joint name=\"joint4\"\
+      \ value=\"0\"/>\n        <joint name=\"joint5\" value=\"0\"/>\n        <joint\
+      \ name=\"joint6\" value=\"0\"/>\n    </group_state>\n    <group_state name=\"\
+      pose2\" group=\"arm\">\n        <joint name=\"joint1\" value=\"-0.1989\"/>\n\
+      \        <joint name=\"joint2\" value=\"0.7072\"/>\n        <joint name=\"joint3\"\
+      \ value=\"0.663\"/>\n        <joint name=\"joint4\" value=\"-0.4862\"/>\n  \
+      \      <joint name=\"joint5\" value=\"0.5917\"/>\n        <joint name=\"joint6\"\
+      \ value=\"-0.7597\"/>\n    </group_state>\n    <!--VIRTUAL JOINT: Purpose: this\
+      \ element defines a virtual joint between a robot link and an external frame\
+      \ of reference (considered fixed with respect to the robot)-->\n    <virtual_joint\
+      \ name=\"virtual_joint\" type=\"fixed\" parent_frame=\"world\" child_link=\"\
+      base_link\"/>\n    <!--DISABLE COLLISIONS: By default it is assumed that any\
+      \ link of the robot could potentially come into collision with any other link\
+      \ in the robot. This tag disables collision checking between a specified pair\
+      \ of links. -->\n    <disable_collisions link1=\"base_link\" link2=\"link1\"\
+      \ reason=\"Adjacent\"/>\n    <disable_collisions link1=\"base_link\" link2=\"\
+      link2\" reason=\"Never\"/>\n    <disable_collisions link1=\"link1\" link2=\"\
+      link2\" reason=\"Adjacent\"/>\n    <disable_collisions link1=\"link2\" link2=\"\
+      link3\" reason=\"Adjacent\"/>\n    <disable_collisions link1=\"link2\" link2=\"\
+      link4\" reason=\"Never\"/>\n    <disable_collisions link1=\"link2\" link2=\"\
+      link5\" reason=\"Never\"/>\n    <disable_collisions link1=\"link2\" link2=\"\
+      link6\" reason=\"Never\"/>\n    <disable_collisions link1=\"link3\" link2=\"\
+      link4\" reason=\"Adjacent\"/>\n    <disable_collisions link1=\"link3\" link2=\"\
+      link5\" reason=\"Never\"/>\n    <disable_collisions link1=\"link3\" link2=\"\
+      link6\" reason=\"Never\"/>\n    <disable_collisions link1=\"link4\" link2=\"\
+      link5\" reason=\"Adjacent\"/>\n    <disable_collisions link1=\"link4\" link2=\"\
+      link6\" reason=\"Never\"/>\n    <disable_collisions link1=\"link5\" link2=\"\
+      link6\" reason=\"Adjacent\"/>\n    <disable_collisions link1=\"base_link\" link2=\"\
+      camera_mount_link\" reason=\"Adjacent\"/>\n    <disable_collisions link1=\"\
+      camera_mount_link\" link2=\"link1\" reason=\"Never\"/>\n    <disable_collisions\
+      \ link1=\"camera_mount_link\" link2=\"link2\" reason=\"Never\"/>\n    <disable_collisions\
+      \ link1=\"camera_mount_link\" link2=\"link3\" reason=\"Never\"/>\n    <disable_collisions\
+      \ link1=\"camera_mount_link\" link2=\"link4\" reason=\"Never\"/>\n    <disable_collisions\
+      \ link1=\"camera_mount_link\" link2=\"link5\" reason=\"Never\"/>\n    <disable_collisions\
+      \ link1=\"camera_mount_link\" link2=\"link6\" reason=\"Never\"/>\n    <disable_collisions\
+      \ link1=\"camera_mount_link\" link2=\"bat_center\" reason=\"Never\"/>\n</robot>\n"
+    robot_description_kinematics:
+      arm:
+        kinematics_solver: kdl_kinematics_plugin/KDLKinematicsPlugin
+        kinematics_solver_search_resolution: 0.005
+        kinematics_solver_timeout: 0.005

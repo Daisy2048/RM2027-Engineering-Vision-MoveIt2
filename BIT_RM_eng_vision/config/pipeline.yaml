@@ -1,0 +1,12 @@
+# 一键启动配置（start.sh 启动时直接读取本文件）
+
+# 相机源: real=大恒相机 | virtual=视频回放
+camera_source: virtual
+# 启动前 colcon buil
+build: true
+# foxglove_bridge 可视化（ws://localhost:8765）
+foxglove: false
+# 旁路录制 recorder_node（崩溃不拖累核心链路）
+recorder: false
+# 电控串口 comm_node（无电控/纯回放可设为 false）
+comm: false

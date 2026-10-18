@@ -1,0 +1,240 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="panthera_ht_ros_description">
+
+  <mujoco>
+    <compiler meshdir="../meshes/" balanceinertia="true" discardvisual="false"/>
+  </mujoco>
+
+  <link name="base_link">
+    <inertial>
+      <origin xyz="5.789e-05 -0.00015938 0.02298649" rpy="0 0 0"/>
+      <mass value="0.62922454"/>
+      <inertia ixx="0.00061305" ixy="-1.32e-06" ixz="1.69e-06" iyy="0.00063876" iyz="-2.1e-07" izz="0.0007565"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="package://panthera_ht_ros_description/meshes/base_link.STL"/></geometry>
+      <material name=""><color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/></material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="package://panthera_ht_ros_description/meshes/base_link.STL"/></geometry>
+    </collision>
+  </link>
+
+  <link name="link1">
+    <inertial>
+      <origin xyz="0.00278873 -0.00094387 0.02491842" rpy="0 0 0"/>
+      <mass value="0.28101551"/>
+      <inertia ixx="0.00039386" ixy="3.75e-06" ixz="-3.733e-05" iyy="0.0002136" iyz="7.17e-06" izz="0.00037066"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="package://panthera_ht_ros_description/meshes/link1.STL"/></geometry>
+      <material name=""><color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/></material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="package://panthera_ht_ros_description/meshes/link1.STL"/></geometry>
+    </collision>
+  </link>
+  <joint name="joint1" type="revolute">
+    <origin xyz="0 0 0.0584" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="link1"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-2.4" upper="2.4" effort="21" velocity="4.2"/>
+  </joint>
+
+  <link name="link2">
+    <inertial>
+      <origin xyz="-0.12936212 -0.00213339 7.183e-05" rpy="0 0 0"/>
+      <mass value="1.5165092"/>
+      <inertia ixx="0.00044711" ixy="3.071e-05" ixz="-5.119e-05" iyy="0.02261049" iyz="3.01e-06" izz="0.02272105"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="package://panthera_ht_ros_description/meshes/link2.STL"/></geometry>
+      <material name=""><color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/></material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="package://panthera_ht_ros_description/meshes/link2.STL"/></geometry>
+    </collision>
+  </link>
+  <joint name="joint2" type="revolute">
+    <origin xyz="0.018199 0 0.053" rpy="0 0 0"/>
+    <parent link="link1"/>
+    <child link="link2"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="0.0" upper="3.2" effort="36" velocity="5"/>
+  </joint>
+
+  <link name="link3">
+    <inertial>
+      <origin xyz="0.16343103 -0.00164646 0.05337427" rpy="0 0 0"/>
+      <mass value="0.66917784"/>
+      <inertia ixx="0.00061339" ixy="-1.439e-05" ixz="-0.00070321" iyy="0.00538615" iyz="-1.404e-05" izz="0.00532976"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="package://panthera_ht_ros_description/meshes/link3.STL"/></geometry>
+      <material name=""><color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/></material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="package://panthera_ht_ros_description/meshes/link3.STL"/></geometry>
+    </collision>
+  </link>
+  <joint name="joint3" type="revolute">
+    <origin xyz="-0.26 0 0" rpy="0 0 0"/>
+    <parent link="link2"/>
+    <child link="link3"/>
+    <axis xyz="0 -1 0"/>
+    <limit lower="0.0" upper="4.0" effort="36" velocity="5"/>
+  </joint>
+
+  <link name="link4">
+    <inertial>
+      <origin xyz="0.05240131 -0.00055249 0.04094177" rpy="0 0 0"/>
+      <mass value="0.30780516"/>
+      <inertia ixx="0.00025787" ixy="-1.011e-05" ixz="-0.00017337" iyy="0.00039454" iyz="-8.09e-06" izz="0.00035094"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="package://panthera_ht_ros_description/meshes/link4.STL"/></geometry>
+      <material name=""><color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/></material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="package://panthera_ht_ros_description/meshes/link4.STL"/></geometry>
+    </collision>
+  </link>
+  <joint name="joint4" type="revolute">
+    <origin xyz="0.23 0 0.06" rpy="0 0 0"/>
+    <parent link="link3"/>
+    <child link="link4"/>
+    <axis xyz="0 -1 0"/>
+    <limit lower="-1.6" upper="1.6" effort="21" velocity="4.2"/>
+  </joint>
+
+  <link name="link5">
+    <inertial>
+      <origin xyz="0.00303007 8.509e-05 -0.03624079" rpy="0 0 0"/>
+      <mass value="0.23711139"/>
+      <inertia ixx="4.815e-05" ixy="-3e-08" ixz="-1.5e-07" iyy="5.773e-05" iyz="-1e-08" izz="3.359e-05"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="package://panthera_ht_ros_description/meshes/link5.STL"/></geometry>
+      <material name=""><color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/></material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="package://panthera_ht_ros_description/meshes/link5.STL"/></geometry>
+    </collision>
+  </link>
+  <joint name="joint5" type="revolute">
+    <origin xyz="0.07 0 0.036319" rpy="0 0 0"/>
+    <parent link="link4"/>
+    <child link="link5"/>
+    <axis xyz="0 0 -1"/>
+    <limit lower="-1.7" upper="1.7" effort="10" velocity="3.7"/>
+  </joint>
+
+  <link name="link6">
+    <inertial>
+      <origin xyz="0.002 0.00 0.00" rpy="0 0 0"/>
+      <mass value="0.01"/>
+      <inertia ixx="0.00107368" ixy="-1.25e-05" ixz="3e-07" iyy="0.00068998" iyz="2.517e-05" izz="0.00167551"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="package://panthera_ht_ros_description/meshes/link6.STL"/></geometry>
+      <material name=""><color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/></material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="package://panthera_ht_ros_description/meshes/link6.STL"/></geometry>
+    </collision>
+  </link>
+  <joint name="joint6" type="revolute">
+    <origin xyz="0.02345 0 -0.039" rpy="0 0 0"/>
+    <parent link="link5"/>
+    <child link="link6"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-2.5" upper="2.5" effort="10" velocity="3.7"/>
+  </joint>
+
+  <link name="L_finger">
+    <inertial>
+      <origin xyz="-0.0685513053302154 0.016863783322054 -0.000510235194009112" rpy="0 0 0"/>
+      <mass value="0.127457990512492"/>
+      <inertia ixx="2.28803355388279E-05" ixy="-4.20099870625027E-06" ixz="3.42841892600802E-07" iyy="5.15650351948181E-05" iyz="-5.67310171718486E-10" izz="4.64985980845228E-05"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="package://panthera_ht_ros_description/meshes/L_finger.STL"/></geometry>
+      <material name=""><color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/></material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="package://panthera_ht_ros_description/meshes/L_finger.STL"/></geometry>
+    </collision>
+  </link>
+  <joint name="L_finger_joint" type="prismatic">
+    <origin xyz="0.165 0 0" rpy="0 0 0"/>
+    <parent link="link6"/>
+    <child link="L_finger"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="0" upper="0.04" effort="100" velocity="0.1"/>
+  </joint>
+
+  <link name="R_finger">
+    <inertial>
+      <origin xyz="-0.0685513053307259 -0.0168637833221451 0.000510464525338844" rpy="0 0 0"/>
+      <mass value="0.127457990511979"/>
+      <inertia ixx="2.28803355389148E-05" ixy="4.20099870615578E-06" ixz="-3.42841892362391E-07" iyy="5.15650351903219E-05" iyz="-5.67310157866966E-10" izz="4.64985980799091E-05"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="package://panthera_ht_ros_description/meshes/R_finger.STL"/></geometry>
+      <material name=""><color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/></material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="package://panthera_ht_ros_description/meshes/R_finger.STL"/></geometry>
+    </collision>
+  </link>
+  <joint name="R_finger_joint" type="prismatic">
+    <origin xyz="0.165 0 0" rpy="0 0 0"/>
+    <parent link="link6"/>
+    <child link="R_finger"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.04" upper="0" effort="100" velocity="0.1"/>
+    <mimic joint="L_finger_joint" multiplier="-1" offset="0"/>
+  </joint>
+
+  <link name="gripper_center">
+    <inertial>
+      <origin xyz="-0.124818615882779 -4.88421114370448E-05 -3.8373269199643E-05" rpy="0 0 0"/>
+      <mass value="0.0960375427712166"/>
+      <inertia ixx="9.09311609578797E-05" ixy="2.21893449480774E-09" ixz="-4.1053650775334E-09" iyy="1.13385601698219E-05" iyz="4.83664470143672E-08" izz="8.46740055322188E-05"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="package://panthera_ht_ros_description/meshes/gripper_center.STL"/></geometry>
+      <material name=""><color rgba="0.866666666666667 0.909803921568627 1 1"/></material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="package://panthera_ht_ros_description/meshes/gripper_center.STL"/></geometry>
+    </collision>
+  </link>
+  <joint name="gripper_center_joint" type="fixed">
+    <origin xyz="0.165 0 0" rpy="0 0 0"/>
+    <parent link="link6"/>
+    <child link="gripper_center"/>
+  </joint>
+
+</robot>

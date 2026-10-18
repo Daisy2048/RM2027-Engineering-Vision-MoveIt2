@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>camera_pkg</name>
+  <version>0.0.0</version>
+  <description>
+    大恒（Galaxy / gxipy）真机取流节点 camera_node。按 config/camera.yaml 配置
+    SN、分辨率、曝光、增益、白平衡、触发与掉线重试；sn 留空则自动选用第一台相机。
+    BGR 帧写入 shared_image_pkg 共享内存，并周期性发布 CameraInfo 到
+    /camera/camera_info。无帧超时会重启采集。下游接口与 virtual_camera_pkg 相同，
+    只换图像源。
+  </description>
+  <maintainer email="1352234739@qq.com">zz</maintainer>
+  <maintainer email="1574468941@qq.com">lsq</maintainer>
+  <license>MIT</license>
+
+  <depend>rclpy</depend>
+  <depend>sensor_msgs</depend>
+  <depend>std_msgs</depend>
+  <depend>shared_image_pkg</depend>
+  <exec_depend>python3-numpy</exec_depend>
+  <exec_depend>python3-opencv</exec_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

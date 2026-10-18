@@ -1,0 +1,15 @@
+<launch>
+  <!-- Start Gazebo with robot -->
+  <include file="$(find-pkg-share panthera_gazebo)/launch/gazebo.launch.xml" />
+
+  <!-- Start MoveIt move_group -->
+  <include file="$(find-pkg-share panthera_ht_config)/launch/move_group.launch.py">
+    <arg name="use_sim_time" value="true" />
+  </include>
+
+  <!-- Start RViz with MoveIt -->
+  <include file="$(find-pkg-share panthera_ht_config)/launch/moveit_rviz.launch.py">
+    <arg name="use_sim_time" value="true" />
+  </include>
+
+</launch>

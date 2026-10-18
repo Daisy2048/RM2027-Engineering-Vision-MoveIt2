@@ -1,0 +1,8 @@
+# Detailed gripper control
+float64 gripper_angle         # Target gripper position (meters, 0.0~0.04)
+float64 gripper_effort        # Max effort/torque
+uint8 gripper_code            # 0=position mode, 1=effort mode
+bool set_zero                 # If true, reset gripper zero position
+---
+int64 code                    # 0=success, non-zero=error code
+bool status

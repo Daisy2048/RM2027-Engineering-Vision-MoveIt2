@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="panthera_hardware_ros2_control" params="name config_file control_mode">
+    <ros2_control name="${name}" type="system">
+      <hardware>
+        <plugin>panthera_hardware/PantheraHardwareInterface</plugin>
+        <param name="config_file">${config_file}</param>
+        <param name="control_mode">${control_mode}</param>
+      </hardware>
+
+      <!-- Joint 1 -->
+      <joint name="joint1">
+        <command_interface name="position"/>
+        <command_interface name="velocity"/>
+        <command_interface name="effort"/>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+        <state_interface name="effort"/>
+        <param name="max_torque">21.0</param>
+        <param name="max_velocity">1.0</param>
+        <param name="kp">4.0</param>
+        <param name="kd">0.5</param>
+      </joint>
+
+      <!-- Joint 2 -->
+      <joint name="joint2">
+        <command_interface name="position"/>
+        <command_interface name="velocity"/>
+        <command_interface name="effort"/>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+        <state_interface name="effort"/>
+        <param name="max_torque">36.0</param>
+        <param name="max_velocity">1.0</param>
+        <param name="kp">10.0</param>
+        <param name="kd">0.8</param>
+      </joint>
+
+      <!-- Joint 3 -->
+      <joint name="joint3">
+        <command_interface name="position"/>
+        <command_interface name="velocity"/>
+        <command_interface name="effort"/>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+        <state_interface name="effort"/>
+        <param name="max_torque">36.0</param>
+        <param name="max_velocity">1.0</param>
+        <param name="kp">10.0</param>
+        <param name="kd">0.8</param>
+      </joint>
+
+      <!-- Joint 4 -->
+      <joint name="joint4">
+        <command_interface name="position"/>
+        <command_interface name="velocity"/>
+        <command_interface name="effort"/>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+        <state_interface name="effort"/>
+        <param name="max_torque">21.0</param>
+        <param name="max_velocity">1.0</param>
+        <param name="kp">2.0</param>
+        <param name="kd">0.2</param>
+      </joint>
+
+      <!-- Joint 5 -->
+      <joint name="joint5">
+        <command_interface name="position"/>
+        <command_interface name="velocity"/>
+        <command_interface name="effort"/>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+        <state_interface name="effort"/>
+        <param name="max_torque">10.0</param>
+        <param name="max_velocity">1.0</param>
+        <param name="kp">2.0</param>
+        <param name="kd">0.2</param>
+      </joint>
+
+      <!-- Joint 6 -->
+      <joint name="joint6">
+        <command_interface name="position"/>
+        <command_interface name="velocity"/>
+        <command_interface name="effort"/>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+        <state_interface name="effort"/>
+        <param name="max_torque">10.0</param>
+        <param name="max_velocity">1.0</param>
+        <param name="kp">1.0</param>
+        <param name="kd">0.1</param>
+      </joint>
+
+      <!-- Gripper Motor (single motor controlling gripper) -->
+      <joint name="gripper_joint">
+        <command_interface name="position"/>
+        <command_interface name="velocity"/>
+        <command_interface name="effort"/>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+        <state_interface name="effort"/>
+        <param name="max_torque">0.5</param>
+        <param name="max_velocity">0.5</param>
+        <param name="kp">1.0</param>
+        <param name="kd">0.1</param>
+      </joint>
+
+    </ros2_control>
+  </xacro:macro>
+
+</robot>

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>pnp_solver_pkg</name>
+  <version>0.0.0</version>
+  <description>
+    PnP 解算节点 pnp_node。订阅 /detect/poses_and_bboxes，将关键点名映射到
+    config/world_points.yaml 的 3D 点（mm），用 config/camera_info.yaml 内参做
+    solvePnPRansac。滑动窗口滤波关键点；按 IoU 将 pillar/exchange 分成 left/right
+    （单目标固定 right）。发布 /pnp/pose_1、/pnp/pose_2（相机系四元数）和
+    /pnp/point_mask（双侧 11 点可见性，bit15 为本帧有效）。滤波/RANSAC/IoU 见
+    config/pnp.yaml。
+  </description>
+  <maintainer email="1352234739@qq.com">zz</maintainer>
+  <maintainer email="1574468941@qq.com">lsq</maintainer>
+  <license>MIT</license>
+
+  <depend>rclpy</depend>
+  <depend>std_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>ament_index_python</depend>
+  <depend>shared_image_pkg</depend>
+  <exec_depend>python3-numpy</exec_depend>
+  <exec_depend>python3-opencv</exec_depend>
+  <exec_depend>python3-yaml</exec_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

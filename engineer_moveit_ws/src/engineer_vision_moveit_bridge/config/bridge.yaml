@@ -1,0 +1,20 @@
+planner_bridge:
+  ros__parameters:
+
+    # MoveIt 规划组
+    planning_group: "arm"
+
+    # 机械臂末端
+    tip_link: "bat_center"
+
+    # 规划配置
+    planning_time: 10.0
+    planning_attempts: 10
+
+    # 速度与加速度
+    velocity_scaling: 0.02
+    acceleration_scaling: 0.02
+
+    # 仿真轨迹执行开关
+    # 默认禁止，确认 FakeSystem 后再手动开启
+    simulation_execute: false

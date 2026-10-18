@@ -1,0 +1,28 @@
+# 大恒相机参数（camera_node 启动时直接读取本文件）
+
+# 相机序列号；留空 = 自动使用第一台识别到的相机
+sn: ""
+# 采集 + 发布目标帧率
+fps: 200.0
+width: 960
+height: 720
+binning: 1
+# 曝光（微秒）与增益（dB）
+exposure_us: 3000.0
+gain: 16.0
+# Bayer 模式: 0=RG, 1=BG, 2=GR, 3=GB
+bayer_mode: 0
+# 白平衡: off=手动(用 wb_r/g/b) | once=启动时自动一次 | continuous=持续自动
+wb_mode: "continuous"
+wb_r: 1.0
+wb_g: 1.0
+wb_b: 1.0
+# 触发: false=连续采图; true=触发模式
+trigger_enable: false
+# 触发源: software | line0 | line1 | line2 | line3
+trigger_source: "software"
+# 掉线重试间隔 / 无新帧重启超时（秒）
+retry_interval_s: 2.0
+no_frame_timeout_s: 3.0
+frame_id: "camera"
+camera_info_topic: "/camera/camera_info"

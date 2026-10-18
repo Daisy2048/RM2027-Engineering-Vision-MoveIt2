@@ -1,0 +1,5 @@
+# Move arm to home (zero) position
+bool use_mit_mode
+---
+int64 code
+bool status

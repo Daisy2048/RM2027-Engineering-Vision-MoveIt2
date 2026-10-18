@@ -1,0 +1,35 @@
+<launch>
+
+  <!-- Define URDF file path -->
+  <let name="urdf_file"
+       value="$(find-pkg-share panthera_ht_ros_description)/urdf/panthera_ht_ros_description_hardware.urdf.xacro" />
+
+  <!-- Robot State Publisher -->
+  <node pkg="robot_state_publisher" exec="robot_state_publisher" >
+    <param name="robot_description" value="$(command 'xacro $(var urdf_file)')" />
+  </node>
+
+  <!-- ros2_control_node -->
+  <node pkg="controller_manager" exec="ros2_control_node" >
+    <param from="$(find-pkg-share panthera_bringup)/config/ros2_controllers.yaml" />
+  </node>
+
+  <!-- joint_state_broadcaster spawner -->
+  <node pkg="controller_manager" exec="spawner" name="joint_state_broadcaster_spawner"
+        args="joint_state_broadcaster" />
+
+  <!-- arm_controller spawner -->
+  <node pkg="controller_manager" exec="spawner" name="arm_controller_spawner"
+        args="arm_controller" />
+
+  <!-- gripper_controller spawner -->
+  <node pkg="controller_manager" exec="spawner" name="gripper_controller_spawner"
+        args="gripper_controller" />
+
+  <!-- MoveIt2 move_group -->
+  <include file="$(find-pkg-share panthera_ht_config)/launch/move_group.launch.py" />
+
+  <!-- RViz2 -->
+  <node pkg="rviz2" exec="rviz2" name="rviz2" output="screen" />
+
+</launch>

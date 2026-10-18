@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>comm_pkg</name>
+  <version>0.0.0</version>
+  <description>
+    电控 UART 节点 comm_node。订阅世界系双侧位姿与 /pnp/point_mask，按
+    config/comm.yaml 的端口/波特率/频率发送：0x01 双侧 XYZ/Yaw/Pitch/Roll
+    （缺失侧全 0），0x04 双侧 11 点可见性位图（仅 bit0–10）。接收 MCU 0x05
+    相机 IMU，转发 /camera/imu_rpy。帧编解码在 protocol.py，与节点分离、可单测。
+    无电控时在 config/pipeline.yaml 将 comm 设为 false。
+  </description>
+  <maintainer email="1352234739@qq.com">zz</maintainer>
+  <maintainer email="1574468941@qq.com">lsq</maintainer>
+  <license>MIT</license>
+
+  <depend>rclpy</depend>
+  <depend>geometry_msgs</depend>
+  <depend>std_msgs</depend>
+  <exec_depend>python3-serial</exec_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>tf_pkg</name>
+  <version>0.0.0</version>
+  <description>
+    相机系→世界系节点 tf_node。订阅双侧 PnP 位姿与 /camera/imu_rpy。有 IMU 时
+    有效角 = raw IMU + imu_*_offset_deg；无 IMU 时用 camera_default_*_deg。
+    IMU 断流 hold-last，不切回默认角。再加上 cam_to_world_xyz_mm 平移与
+    target_offset_xyz_mm 末端偏置，发布 /world/object_rpy_1、/world/object_rpy_2
+    （position=XYZ mm，orientation.x/y/z=Roll/Pitch/Yaw deg）。纯几何在
+    transform.py。参数见 config/tf.yaml，两套姿态参数勿混用。
+  </description>
+  <maintainer email="1352234739@qq.com">zz</maintainer>
+  <maintainer email="1574468941@qq.com">lsq</maintainer>
+  <license>MIT</license>
+
+  <depend>rclpy</depend>
+  <depend>geometry_msgs</depend>
+  <depend>tf2_ros</depend>
+  <exec_depend>python3-numpy</exec_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

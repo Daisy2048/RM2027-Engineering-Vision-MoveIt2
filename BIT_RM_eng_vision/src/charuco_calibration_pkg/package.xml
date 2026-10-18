@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>charuco_calibration_pkg</name>
+  <version>0.0.0</version>
+  <description>
+    相机内参标定包。calibration_node 订阅共享帧，交互采集 ChArUco 或圆点板合格帧
+    （清晰度/覆盖率门槛），标定后写出 camera_info.yaml 供 pnp_solver_pkg 使用。
+    offline_calibration 可对已采集图像离线重标定。板尺寸、采样数、单视图误差阈值
+    见 config/calibration.yaml。结果需拷入 pnp_solver_pkg/config/ 后重新 build
+    才进入主链路。
+  </description>
+  <maintainer email="1352234739@qq.com">zz</maintainer>
+  <maintainer email="1574468941@qq.com">lsq</maintainer>
+  <license>MIT</license>
+
+  <depend>rclpy</depend>
+  <depend>std_msgs</depend>
+  <depend>shared_image_pkg</depend>
+  <exec_depend>python3-numpy</exec_depend>
+  <exec_depend>python3-opencv</exec_depend>
+  <exec_depend>python3-yaml</exec_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

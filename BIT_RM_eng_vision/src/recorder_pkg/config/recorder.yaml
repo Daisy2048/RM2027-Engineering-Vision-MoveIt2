@@ -1,0 +1,16 @@
+# 旁路录制参数（recorder_node 启动时直接读取本文件，H.264 MKV 分段）
+
+output_dir: "recordings"
+# 播放帧率
+output_fps: 20.0
+# 每 N 帧输入写 1 帧到文件
+write_every_n: 3
+# 每段帧数（如 20fps*60s=1200）
+segment_frames: 1200
+# 质量/体积平衡（18~28，越大文件越小）
+crf: 25
+codec: "libx264"
+preset: "ultrafast"
+pix_fmt: "yuv420p"
+# 检测结果缓存长度（用于给视频帧叠加检测框）
+detections_cache_len: 30

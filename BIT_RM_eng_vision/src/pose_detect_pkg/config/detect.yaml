@@ -1,0 +1,13 @@
+# 关键点检测参数（detect_node 启动时直接读取本文件）
+
+# OpenVINO IR 模型 .xml；相对路径相对于 assets 包目录解析
+# 权重为香港科技大学开源，src/assets/models/openvino_best/best.xml + best.bin
+model_path: "models/openvino_best/best.xml"
+# OpenVINO 推理设备: CPU | GPU | AUTO ...
+device: "CPU"
+# 检测置信度阈值
+conf_threshold: 0.9
+# 打印耗时等调试日志
+debug: true
+# 显示 OpenCV 调试窗口（无显示环境设为 false）
+show_image: true

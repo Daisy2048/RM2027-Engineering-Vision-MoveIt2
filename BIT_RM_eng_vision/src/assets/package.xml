@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>assets</name>
+  <version>0.0.0</version>
+  <description>
+    无节点的资源包。安装后将 models/ 与 videos/ 放到 share 目录，供
+    pose_detect_pkg / virtual_camera_pkg 用 get_package_share_directory("assets")
+    解析相对路径。检测权重为香港科技大学（HKUST Enterprize）开源的
+    OpenVINO IR（best.xml + best.bin），不随本仓库发布，必须放到
+    src/assets/models/openvino_best/ 后 colcon build。开源权重：
+    https://huggingface.co/hkustenterprize/RM26_engineer_exchange_model
+    （yolopose/v11.02）。对应数据集：
+    https://huggingface.co/datasets/hkustenterprize/RM26_engineer_exchange
+  </description>
+  <maintainer email="1352234739@qq.com">zz</maintainer>
+  <maintainer email="1574468941@qq.com">lsq</maintainer>
+  <license>MIT</license>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

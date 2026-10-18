@@ -1,0 +1,26 @@
+.claude
+.vscode
+*.json
+log/
+install/
+build/
+recordings/
+calibration/
+__pycache__/
+*.pyc
+communication_pkg/
+AGENTS.md
+# 模型权重与回放视频需自备，不入库（见 src/assets/ 下说明）
+src/assets/models/openvino_best/best.bin
+src/assets/models/openvino_best/best.pt
+src/assets/models/openvino_best/best.xml
+src/assets/models/openvino_best/metadata.yaml
+src/assets/videos/*.mp4
+# scripts/autostart 安装后生成的操作脚本
+stop_eng_real.sh
+start_eng_real.sh
+restart_eng_real.sh
+status_eng_real.sh
+eng_real_log_terminal.sh
+.eng_real_log_follow.sh
+source_eng_ros.sh

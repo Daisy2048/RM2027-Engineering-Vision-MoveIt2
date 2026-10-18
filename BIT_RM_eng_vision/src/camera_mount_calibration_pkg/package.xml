@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>camera_mount_calibration_pkg</name>
+  <version>0.1.0</version>
+  <description>
+    相机安装角（SO(3)）交互标定。start_mount_calibration.sh 拉起 camera + detect
+    + pnp + comm，用 mount_calibration_node 临时替代 tf_node：A 位置确定旋转轴
+    两参数，B 位置调节 θ，确认后写出整体替代的 imu_*_offset_deg（yaml 片段，
+    拷入 tf_pkg/config/tf.yaml）。so3_visualization 为原理可视化。种子偏置与
+    IMU/位姿新鲜度门槛见 config/mount_calibration.yaml。
+  </description>
+  <maintainer email="1352234739@qq.com">zz</maintainer>
+  <maintainer email="1574468941@qq.com">lsq</maintainer>
+  <license>MIT</license>
+
+  <depend>rclpy</depend>
+  <depend>geometry_msgs</depend>
+  <depend>std_msgs</depend>
+  <depend>rcl_interfaces</depend>
+  <depend>shared_image_pkg</depend>
+  <depend>tf_pkg</depend>
+  <exec_depend>python3-numpy</exec_depend>
+  <exec_depend>python3-opencv</exec_depend>
+  <exec_depend>python3-matplotlib</exec_depend>
+  <test_depend>python3-pytest</test_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

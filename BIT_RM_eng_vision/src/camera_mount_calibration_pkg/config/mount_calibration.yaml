@@ -1,0 +1,23 @@
+# 相机安装角标定参数（mount_calibration_node 启动时直接读取本文件）
+
+# 旧安装偏置 [roll, pitch, yaw]（deg），仅作 A 阶段种子；
+# 填 tf.yaml 中当前的 imu_*_offset_deg 值
+old_imu_offset_deg: [0.0, 0.0, 0.0]
+# 结果输出目录；相对路径相对于当前工作目录解析
+output_dir: "calibration/camera_mount"
+# OpenCV 图形界面；无显示环境设为 false（退化为终端命令）
+ui: true
+# 一次有效采样所需的最少 IMU 样本数
+min_imu_samples: 10
+# PnP 位姿/掩码新鲜度（秒）
+pose_fresh_s: 0.6
+# IMU 新鲜度（秒）
+imu_fresh_s: 1.5
+# IMU 采样窗口（秒）
+imu_window_s: 8.0
+# B 阶段允许的 IMU 相对 A 的最大漂移（deg）
+max_imu_drift_deg: 3.0
+# B 相机射线与 A 轴的最小夹角（deg）
+min_b_axis_separation_deg: 10.0
+# 收到 0x02 后等待实际 UART TX 的超时（秒）
+pending_tx_timeout_s: 3.0

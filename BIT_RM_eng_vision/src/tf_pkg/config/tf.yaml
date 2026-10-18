@@ -1,0 +1,18 @@
+# 相机系→世界系转换参数（tf_node 启动时直接读取本文件）
+
+# camera 原点在 world 系下的坐标 [x, y, z]（mm）
+cam_to_world_xyz_mm: [-317.4, 0.0, 422.64]
+# 无 IMU 时的默认相机姿态（deg，已调好的静态角，不是安装偏置）
+camera_default_roll_deg: 1.0
+camera_default_pitch_deg: 14.0
+camera_default_yaw_deg: 0.0
+# 安装偏置（deg），仅在有 IMU 时与 raw IMU 分量相加；断流不切回默认角
+imu_roll_offset_deg: 0.0
+imu_pitch_offset_deg: 0.0
+imu_yaw_offset_deg: 0.0
+# IMU 陈旧告警超时（秒；仅告警，不改姿态）
+imu_timeout_s: 3.0
+# 陈旧告警最小间隔（秒）
+error_log_interval_s: 1.0
+# 物体坐标系下，从物体原点指向逆解目标点的偏置 [x, y, z]（mm）
+target_offset_xyz_mm: [0.0, 0.0, 40.0]

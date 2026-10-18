@@ -1,0 +1,44 @@
+# ROS 2 / colcon generated files
+**/build/
+**/install/
+**/log/
+**/logs/
+**/__pycache__/
+*.py[cod]
+**/.pytest_cache/
+**/.mypy_cache/
+**/.cache/
+
+# Runtime results / temporary files
+*.log
+*.log.*
+*.bag
+*.db3
+*.mcap
+*.csv
+*.tmp
+*.swp
+*~
+
+# Raw archives; extract a copy locally if needed
+BIT_RM_eng_vision-master.zip
+
+# Local environment / sensitive information
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+id_rsa*
+
+# Editor / system
+.vscode/
+.idea/
+.DS_Store
+
+# Git metadata should not be copied from nested upstream repositories
+# Remove/move nested .git directories outside the root before staging.
+
+# Panthera private development files
+/Panthera-HT_ROS2/urdf替换资料/
+/Panthera-HT_ROS2/二次开发/

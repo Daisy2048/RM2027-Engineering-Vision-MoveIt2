@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="panthera_ht_hardware">
+
+  <!-- Include the base robot description -->
+  <xacro:include filename="$(find panthera_ht_ros_description)/urdf/panthera_ht_ros_description.xacro"/>
+
+  <!-- Include the hardware ros2_control configuration -->
+  <xacro:include filename="$(find panthera-ht_hardware)/config/panthera_hardware.ros2_control.xacro"/>
+
+  <!-- Parameters -->
+  <xacro:arg name="config_file" default="$(find panthera_robot)/robot_param/Leader.yaml"/>
+  <xacro:arg name="control_mode" default="position_velocity"/>
+
+  <!-- Instantiate the hardware ros2_control -->
+  <xacro:panthera_hardware_ros2_control
+    name="PantheraHardware"
+    config_file="$(arg config_file)"
+    control_mode="$(arg control_mode)"/>
+
+</robot>

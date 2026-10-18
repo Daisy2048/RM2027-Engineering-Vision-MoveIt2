@@ -1,0 +1,26 @@
+# 相机标定采集参数（camera_calibration_node 启动时直接读取本文件）
+
+# 标定板类型: charuco_300（ChArUco）| circle_grid（圆点板）
+board_type: "charuco_300"
+squares_x: 14
+squares_y: 9
+square_length_m: 0.020
+marker_length_m: 0.015
+dictionary: "DICT_5X5_1000"
+circle_columns: 7
+circle_rows: 7
+circle_diameter_m: 0.010
+circle_spacing_m: 0.020
+# 合格帧门槛
+min_corners: 35
+min_sharpness: 80.0
+min_coverage: 0.035
+# 采样数：达到 minimum_samples 方可标定，max_samples 上限
+minimum_samples: 25
+max_samples: 300
+# 单视图重投影误差剔除阈值（px）
+max_view_error: 0.8
+camera_name: "daheng_camera"
+# 输出根目录；留空 = calibration/<board_type>/<时间戳>/
+output_directory: ""
+show_image: true
