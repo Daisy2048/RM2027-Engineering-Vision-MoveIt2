@@ -272,3 +272,140 @@ ros2 topic info /vision/target_pose_base
 3. 视觉坐标单位和参考坐标系必须显式标注；PnP 位姿不可当作末端 TCP 位姿直接发送。
 4. 真实硬件联调前必须完成相机外参标定、TCP 标定、机械臂模型核验、下位机协议与安全联锁验收。
 5. 第三方源码应保留原始许可证、出处及必要的版权声明。
+
+<!-- RM2027_SIM_INTEGRATION_2026_START -->
+
+## 🚀 近期进展：视觉目标规划与 Gazebo 六轴仿真（2026-11-01）
+
+> **当前状态：** 已分别验证“模拟视觉目标 → MoveIt 2 生成轨迹”与“轨迹控制器 → Gazebo 六轴运动”。**尚未**验证 MoveIt 自动执行其规划轨迹到 Gazebo，也**尚未**验证真实摄像头和真机闭环。
+
+### 系统目标与链路
+
+```text
+摄像头 / 目标检测 / 位姿估计         （真实视觉全链路：待验收）
+              │
+          TF 坐标转换
+              │
+              ▼
+/vision/target_pose_base  [PoseStamped, base_link]
+              │                     ↑ 模拟目标已验证
+              ▼
+planner_bridge  [engineer_vision_moveit_bridge]
+              │
+              ▼
+MoveIt 2 / OMPL  [arm, bat_center]
+              │
+              ▼
+        六轴规划轨迹                ✅ 已成功生成
+              │
+              ┆ 待完成：MoveIt → Gazebo 轨迹执行联动
+              ▼
+/arm_controller/follow_joint_trajectory
+              │
+       ┌──────┴───────────┐
+       ▼                  ▼
+Gazebo / ros2_control    真机硬件接口 / 下位机（后续）
+       │
+       ▼
+六轴关节状态 /joint_states           ✅ 独立控制测试通过
+```
+
+仿真阶段与未来真机阶段应尽量共用视觉感知、TF、MoveIt 规划和标准轨迹接口，仅替换底层硬件执行与状态反馈；真实硬件仍须单独验证零位、关节限位、反馈、急停及通信安全。
+
+### 本轮已验证的结果
+
+| 模块 | 结果 | 证据与备注 |
+| --- | --- | --- |
+| Gazebo Classic 11 模型加载 | ✅ | `rm2027_moveit_compat` 成功生成 |
+| `gazebo_ros2_control` | ✅ | 六个关节 `joint1`～`joint6` 成功加载 |
+| `joint_state_broadcaster` / `arm_controller` | ✅ | 两个控制器均为 `active` |
+| 直接发送六轴 FollowJointTrajectory | ✅ | 机械臂实际运动，Action 返回 `SUCCEEDED` |
+| `/joint_states` / TF | ✅ | 关节反馈和 `base_link → bat_center` 变换可读取 |
+| MoveIt 2 / OMPL | ✅ | `You can start planning now!` |
+| 原有 `planner_bridge` 接收模拟视觉目标 | ✅ | `/vision/target_pose_base` 成功接收目标 |
+| MoveIt 2 生成六轴规划轨迹 | ✅ | 规划耗时约 **0.022 s**、**5 个轨迹点**、最大关节位移约 **0.022395 rad** |
+| RViz 轨迹消息发布 | ✅ | 桥接程序报告已发布 `/display_planned_path`；尚未单独验收 RViz 界面显示 |
+| MoveIt 轨迹实际驱动 Gazebo | ⏳ | 尚未联动执行，当前有意关闭自动执行 |
+| 真实摄像头 → Gazebo / 下位机真机 | ⏳ | 尚未完成端到端验证 |
+
+### 当前主要功能包与文件
+
+```text
+Panthera-HT_ROS2/src/
+├── rm2027_robot_description/
+│   ├── urdf/robot_gazebo_moveit_compat.urdf       # 当前 Gazebo 六轴兼容模型
+│   ├── config/ros2_controllers_moveit_compat.yaml # joint1~joint6 控制器配置
+│   └── launch/
+│       ├── rm2027_gazebo_moveit_compat.launch.py  # ① Gazebo + ros2_control
+│       ├── rm2027_move_group_gazebo.launch.py     # ② MoveIt 2 规划服务
+│       └── rm2027_planner_bridge_gazebo.launch.py # ③ 原有规划桥接适配 Gazebo
+└── panthera_ht_config/                            # 原有 SRDF / KDL / MoveIt 配置
+
+engineer_moveit_ws/src/
+├── engineer_vision_moveit_bridge/
+│   ├── src/planner_bridge.cpp                     # 原有视觉目标 → MoveIt 规划
+│   └── config/bridge.yaml                        # arm / bat_center / 执行开关
+└── engineer_vision_tf_bridge/                    # 视觉目标坐标转换相关代码
+```
+
+**约束：** 继续复用原有 SRDF 与 `planner_bridge.cpp`，**不使用 MoveIt Servo**。`robot_gazebo.urdf`、`robot_gazebo_inertia_v2.urdf` 等历史模型目前保留供回归测试；不应与当前兼容版随意混用。
+
+### 启动方式（打开三个终端，依次启动）
+
+运行前请确认已经完成 ROS 2 工作区编译和依赖安装，且没有其他 `gzserver` 占用端口。
+
+**终端 1 — Gazebo + 六轴控制器**
+
+```bash
+cd /home/daisy/rm2027/Panthera-HT_ROS2
+source /opt/ros/humble/setup.bash
+source install/setup.bash
+ros2 launch rm2027_robot_description rm2027_gazebo_moveit_compat.launch.py
+```
+
+成功标志：`joint_state_broadcaster` 和 `arm_controller` 均为 `active`。
+
+**终端 2 — MoveIt 2 规划服务**
+
+```bash
+cd /home/daisy/rm2027/Panthera-HT_ROS2
+source /opt/ros/humble/setup.bash
+source install/setup.bash
+ros2 launch rm2027_robot_description rm2027_move_group_gazebo.launch.py
+```
+
+成功标志：OMPL 初始化完成，打印 `You can start planning now!`。
+
+**终端 3 — 复用原有 `planner_bridge`**
+
+```bash
+source /opt/ros/humble/setup.bash
+source /home/daisy/rm2027/Panthera-HT_ROS2/install/setup.bash
+source /home/daisy/rm2027/engineer_moveit_ws/install/setup.bash
+ros2 launch rm2027_robot_description rm2027_planner_bridge_gazebo.launch.py
+```
+
+成功标志：`MoveIt planning frame: base_link`、`Target tip link: bat_center`、`Waiting for /vision/target_pose_base`。
+
+**终端 4 — 模拟视觉目标（只规划，不执行）**
+
+```bash
+source /opt/ros/humble/setup.bash
+ros2 topic pub --once /vision/target_pose_base geometry_msgs/msg/PoseStamped \
+  '{header: {frame_id: "base_link"}, pose: {position: {x: 0.184, y: 0.077, z: 0.279}, orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}}}'
+```
+
+以上坐标是**某次已成功规划的测试位姿**，不是通用安全目标；在不同起始姿态下不保证可达。请先根据实时 TF 和碰撞约束确认测试目标。
+
+当前测试配置：`planner_bridge.simulation_execute=false`，`move_group.allow_trajectory_execution=false`。不要仅为看到机械臂运动而直接解除安全开关。
+
+### 已知问题与下一步
+
+1. **规划与执行尚未联通：** 下一步检查 `/display_planned_path` 轨迹与当前 `/joint_states` 起点一致性，再做受控的 MoveIt → Gazebo 轨迹执行测试。
+2. **CHOMP 动态库加载警告：** `libchomp_motion_planner.so.2.5.10` 缺失；当前 OMPL 可正常规划，后续应清理仿真管线配置。
+3. **多条同名 `/move_group` ROS 节点记录：** 已观察到一个 `move_group` 可执行进程，CLI 参数查询仍可能受节点重名影响。
+4. **KDL 根连杆惯性警告：** `base_link` 根连杆具有惯性参数；当前未阻止规划，待统一模型时处理。
+5. **物理参数待校准：** Gazebo 简化碰撞体与 V2 近似惯性不是最终 CAD 质量模型，真机之前需校验。
+6. **视觉和真机后续验证：** 检查检测/PnP/TF 的实际端到端数据，以及 `panthera_hardware`、`hightorque_robot` 与标准轨迹控制接口的适配。
+
+<!-- RM2027_SIM_INTEGRATION_2026_END -->
